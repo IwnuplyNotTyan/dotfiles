@@ -3,18 +3,20 @@
 ![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/073240f6-c7a9-47f2-9b32-bb0afdc34ff9)
 # Apps
 ## [ZSH](https://en.wikipedia.org/wiki/Z_shell) & [Starship](https://starship.rs)!
-Tree Files
 - ~/
   - .zshrc
   - .zsh
  - ~/.config/
    - starship.toml
-   - 
+  
 `Min Dep: Exa, FZF, Bat, Starship, NerdFont`
  
 ![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/d7cabd4d-ffc4-4b83-8165-015bff5dee61)
 
 ## [Neovim](https://github.com/neovim/neovim)
+ - ~/.config
+   - init.lua
+   - lazy-lock.json
 `Min Dep: NerdFont`
 
 ![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/c9ebd363-fb73-4b61-b888-03e1091928c9)
