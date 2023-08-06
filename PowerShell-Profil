@@ -1,0 +1,28 @@
+#Theme
+Invoke-Expression (&starship init powershell)
+Import-Module Terminal-Icons
+
+#PSReadLine + FZF
+Import-Module PSReadLine
+Import-Module PSFZF
+Set-PSReadLineOption -BellStyle None
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineKeyHandler -Key Tab -Function Complete
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSFZFOption -psreadlinechordprovider 'ctrl+f'
+Set-PSFZFOption -psreadlinechordreverhistory 'crlt+r'
+
+#Alias WimFetch
+Set-Alias neofetch winfetch
+Set-Alias pfetch winfetch
+Set-Alias uwufetch winfetch
+
+#Alias LS
+Set-Alias exa ls
+Set-Alias lsd ls
+Set-Alias ll ls
+
+#Alias
+Set-Alias vim nvim

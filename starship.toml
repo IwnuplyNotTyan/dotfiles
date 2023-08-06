@@ -1,0 +1,25 @@
+[aws]
+style = "bold #ffb86c"
+
+[character]
+error_symbol = "[λ](bold #df5b61)"
+success_symbol = "[λ](bold  #87c7a1)"
+
+[cmd_duration]
+style = "bold #f1fa8c"
+
+[directory]
+style = "bold  #96d6b0"
+
+[git_branch]
+style = "bold #de8f78"
+
+[git_status]
+style = "bold #de8f78"
+
+[hostname]
+style = "bold #bd93f9"
+
+[username]
+format = "[$user]($style) on "
+style_user = "bold #8be9fd"
