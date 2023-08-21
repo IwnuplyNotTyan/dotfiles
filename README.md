@@ -1,2 +1,2 @@
 # I3 WM Dotfiles
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/c36c8cd0-8b5e-43c4-81bd-27ec46246c40)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-45.jpg)
