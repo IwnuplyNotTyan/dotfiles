@@ -1,7 +1,7 @@
 # ~/.dotfiles
 # ![i3 WM](https://github.com/IwnuplyNotTyan/dotfiles/tree/i3)
 
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/5f79c5a5-ded1-463a-a082-3421e4276cd4)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-45.jpg)
 
 # Apps
 ## [ZSH](https://en.wikipedia.org/wiki/Z_shell) & [Starship](https://starship.rs)!
@@ -33,7 +33,8 @@
     -  calc.plugin.zsh
     -  calc.plugin.zsh
     
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/65353c45-b054-48ef-ab5a-084dfaeeb940)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_16-07-59.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_16-15-54.jpg)
 
 ## [Neovim](https://github.com/neovim/neovim)
  - ~/.config
@@ -41,10 +42,12 @@
    - lazy-lock.json
 `Min Dep: NerdFont`
 
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/610c13ac-436e-4b3b-9077-351733c5e7b7)
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/c96939f3-0095-419c-9063-b1cf933326a3)
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/63a863cb-0449-4090-a750-f605c1ad359e)
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/d3594b9d-32ca-4b0d-990b-dbc7a49f4cb4)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-47.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-50.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-52.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-56.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-54.jpg)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-59-58.jpg)
 
 ## ![Joshuto](https://github.com/kamiyaa/joshuto)
 - ~/.config/joshuto/
@@ -52,4 +55,4 @@
 
 `Min Dep: NerdFont`
 
-![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/044c2523-90aa-4984-a4ab-dcd5c3315658)
+![image](https://raw.githubusercontent.com/IwnuplyNotTyan/dotfiles/main/screenshot/photo_2023-08-21_15-58-58.jpg)
