@@ -1,4 +1,14 @@
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+vim.cmd([[map , :bprevious]])
+vim.cmd([[map . :bnext]])
+vim.cmd([[map b :Trouble]])
+vim.cmd([[map t :ToggleTerm]])
+vim.cmd([[map n :NvimTreeFocus]])
+vim.o.clipboard = "unnamedplus"
+vim.o.syntax = "on"
+vim.g.maplocalleader = " "
+vim.g.mapleader = " "
+vim.opt.termguicolors = true
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git", "clone", "--filter=blob:none",
@@ -9,14 +19,138 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{'neovim/nvim-lspconfig',
+	{'kevinhwang91/nvim-bqf'},
+	{'nvim-telescope/telescope.nvim',
+	cmd = 'Telescope',
+  dependencies = {
+    'nvim-telescope/telescope-symbols.nvim',
+    'nvim-telescope/telescope-fzy-native.nvim',
+    'stevearc/dressing.nvim',
+    'mrjones2014/legendary.nvim',
+    config = function()
+	    required('telescope.nvim').setup{}
+	    require('dressing').setup({
+		    input = {
+			    enabled = true,
+			    border = "none",
+		border = "rounded",
+	    mappings = {
+      n = {
+        ["<Esc>"] = "Close",
+        ["<CR>"] = "Confirm",
+      },
+      i = {
+        ["<C-c>"] = "Close",
+        ["<CR>"] = "Confirm",
+        ["<Up>"] = "HistoryPrev",
+        ["<Down>"] = "HistoryNext",
+      },
+    },
+    select = {
+    enabled = true,
+    backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+    telescope = nil,
+    }}})
+    end}},
+	{'nvim-neotest/neotest-python'},
+	{'nvim-neotest/neotest',
 	config = function()
-	local status, nvim_lsp = pcall(require, "lspconfig")
-	if not status then
-	return
+	require("neotest").setup({
+	  adapters = {
+	    require("neotest-python")
+    	}})
+    	end},
+	{"nvim-lua/plenary.nvim"},
+	{"nvim-treesitter/nvim-treesitter"},
+	{"antoinemadec/FixCursorHold.nvim"},
+	{'lewis6991/gitsigns.nvim'},
+	{'NeogitOrg/neogit'},
+	{'anuvyklack/hydra.nvim'},
+	{"folke/trouble.nvim",
+	 dependencies = { "nvim-tree/nvim-web-devicons" },
+	 opts = {}
+	},
+	{'akinsho/toggleterm.nvim',
+	config = function()
+		require("toggleterm").setup{}
+			end},
+	{"folke/noice.nvim",
+  	event = "VeryLazy",
+  	opts = {},
+	config = function()
+		  require("noice").setup({
+  	  views = {
+  	    cmdline_popup = {
+  	      border = {
+  	        style = "none",
+  	        padding = { 2, 3 },
+  	      },
+  	      filter_options = {},
+  	      win_options = {
+  	        winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+  	      },
+  	    },
+  	  },
+  	})
+	end},
+  	{"MunifTanjim/nui.nvim"},
+   	{"rcarriga/nvim-notify"},
+	{'anuvyklack/animation.nvim',
+	config = function()
+	   requires = 'anuvyklack/middleclass'
+   	end
+	},
+	{ 'nvim-focus/focus.nvim', 
+	version = '*',
+	config = function()
+		require("focus").setup()
+	end},
+	{"Pocco81/true-zen.nvim",
+	config = function()
+		 require("true-zen").setup {
+		 }
 	end
-
-	local on_attach = function(client, bufnr)
+	},
+	{"folke/twilight.nvim",
+  	opts = {
+	{
+  dimming = {
+    alpha = 0.25, -- amount of dimming
+    -- we try to get the foreground from the highlight groups or fallback color
+    color = { "Normal", "#c5c8c9" },
+    term_bg = "#101415", -- if guibg=NONE, this will be used to calculate text color
+    inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+  },
+  context = 10, -- amount of lines we will try to show around the current line
+  treesitter = true, -- use treesitter when available for the filetype
+  -- treesitter is used to automatically expand the visible text,
+  -- but you can further control the types of nodes that should always be fully expanded
+  expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+    "function",
+    "method",
+    "table",
+    "if_statement",
+  },
+  exclude = {}, -- exclude these filetypes
+}}
+	},
+	{'goolord/alpha-nvim',
+	    dependencies = { 'nvim-tree/nvim-web-devicons' },
+	    config = function ()
+	        require'alpha'.setup(require'alpha.themes.startify'.config)
+	    end
+	};
+	{"williamboman/mason.nvim",
+	config = function()
+	require("mason").setup()
+	end},
+      	{'akinsho/bufferline.nvim',
+	config = function()
+	require('bufferline').setup{}
+	end},
+		{'neovim/nvim-lspconfig',
+		config = function()
+				local on_attach = function(client, bufnr)
 	if client.server_capabilities.documentFormattingProvider then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = vim.api.nvim_create_augroup("Format", { clear = true }),
@@ -29,8 +163,8 @@ require("lazy").setup({
 	end
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 	end },
+
 	{'hrsh7th/cmp-nvim-lsp'},
 	{'hrsh7th/cmp-buffer'},
 	{'hrsh7th/nvim-cmp',
@@ -96,7 +230,7 @@ require("lazy").setup({
 		if (not status) then return end
 		require('lspkind').init({
 			   mode = 'symbol_text',
-			       preset = 'codicons',
+			       preset = 'default',
 			       symbol_map = {
       		Text = "󰉿",
       		Method = "󰆧",
@@ -130,7 +264,14 @@ require("lazy").setup({
 		config = function()
 			require'colorizer'.setup()
 		end},
-	{'nvim-treesitter/nvim-treesitter'},
+	{'nvim-treesitter/nvim-treesitter',
+	config = function()
+	require'nvim-treesitter.configs'.setup {
+	  highlight = {
+    enable = true,
+	  additional_vim_regex_highlighting = false,
+  	},}
+	end},
 	{'nvim-tree/nvim-tree.lua',
 	config = function()
 	require("nvim-tree").setup()
@@ -144,7 +285,6 @@ require("lazy").setup({
  	 },
 	})
 	end },
-	{'MunifTanjim/prettier.nvim'},
 	{'nvim-lualine/lualine.nvim',
 	config = function()
 		require('lualine').setup()
@@ -183,7 +323,7 @@ local diagnostics = {
 
 local branch = {
 	"branch",
-	icon = "󰊢 ",
+	icon = " 󰊢 ",
 	separator = { left = "", right = "" },
   padding = 0.1
 }
@@ -340,7 +480,7 @@ lualine.setup({
 					return ""
 				end,
 				separator = { left = "", right = "" },
-				color = { bg = "#8FBCBB", fg = "#000000" },
+				color = { bg = "#70b9cc", fg = "#101415" },
 				padding = 0.3,
 			},
 			{
@@ -351,7 +491,7 @@ lualine.setup({
 					return " "
 				end,
 				separator = { left = "", right = "" },
-				color = { bg = "#ECD3A0", fg = "#000000" },
+				color = { bg = "#ffb29b", fg = "#101415" },
 				padding = 0.3,
 			},
 			"progress",
@@ -360,7 +500,7 @@ lualine.setup({
 					return "󰆤 "
 				end,
 				separator = { left = "", right = "" },
-				color = { bg = "#86AAEC", fg = "#000000" },
+				color = { bg = "#cb92f2", fg = "#101415" },
 				padding = 0.1,
 			},
 			location,
@@ -368,9 +508,8 @@ lualine.setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
-})
-	end },
-	{'projekt0n/circles.nvim', lazy = true,
+	})
+			end },	{'projekt0n/circles.nvim', lazy = true,
 	config = function()
 	require("circles").setup({
 	  icons = { empty = "", filled = "", lsp_prefix = "" },
@@ -405,44 +544,5 @@ lualine.setup({
     },
 })
 				vim.cmd([[colorscheme kanagawa-dragon]])
-		local theme = require("kanagawa.colors").setup().theme
-		local kanagawa = {}
-		kanagawa.normal = {
-		  a = { bg = theme.syn.fun, fg = theme.ui.bg_m3 },
-		  b = { bg = theme.diff.change, fg = theme.syn.fun },
-		  c = { bg = theme.ui.bg_p1, fg = theme.ui.fg },
-		}
-
-		kanagawa.insert = {
-		  a = { bg = theme.diag.ok, fg = theme.ui.bg },
-		  b = { bg = theme.ui.bg, fg = theme.diag.ok },
-		}
-
-		kanagawa.command = {
-		  a = { bg = theme.syn.operator, fg = theme.ui.bg },
-		  b = { bg = theme.ui.bg, fg = theme.syn.operator },
-			}
-
-		kanagawa.visual = {
-		  a = { bg = theme.syn.keyword, fg = theme.ui.bg },
-		  b = { bg = theme.ui.bg, fg = theme.syn.keyword },
-		}
-
-		kanagawa.replace = {
-		  a = { bg = theme.syn.constant, fg = theme.ui.bg },
-		  b = { bg = theme.ui.bg, fg = theme.syn.constant },
-		}
-
-		kanagawa.inactive = {
-		  a = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-		  b = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim, gui = "bold" },
-		  c = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-		}
-		if vim.g.kanagawa_lualine_bold then
-		  for _, mode in pairs(kanagawa) do
-		    mode.a.gui = "bold"
-		  end
-		end
-		return kanagawa
-		end, }
+				end, }
 		})
