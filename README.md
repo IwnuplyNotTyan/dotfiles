@@ -53,12 +53,3 @@
 `Min Dep: NerdFont`
 
 ![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/044c2523-90aa-4984-a4ab-dcd5c3315658)
-
-## [Ranger](https://github.com/ranger/ranger)
- - ~/.config/ranger/
-   - rc.conf
-   - plugin
-     
-`Min Dep: FZF, NerdFont`
-
-## ![image](https://github.com/IwnuplyNotTyan/dotfiles/assets/78899891/f928c9a1-e242-498c-8f32-e8afae7825ab)
