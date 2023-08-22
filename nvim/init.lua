@@ -19,6 +19,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{'DaikyXendo/nvim-material-icon',
+	config = function()
+		require'nvim-material-icon'.get_icons()
+	end},
 	{'kevinhwang91/nvim-bqf'},
 	{'nvim-neotest/neotest-python'},
 	{'nvim-neotest/neotest',
@@ -33,6 +37,7 @@ require("lazy").setup({
 	{"antoinemadec/FixCursorHold.nvim"},
 	{'lewis6991/gitsigns.nvim'},
 	{'NeogitOrg/neogit'},
+	{'anuvyklack/hydra.nvim'},
 	{"folke/trouble.nvim",
 	 dependencies = { "nvim-tree/nvim-web-devicons" },
 	 opts = {}
@@ -117,20 +122,70 @@ require("lazy").setup({
 	end},
 		{'neovim/nvim-lspconfig',
 		config = function()
-				local on_attach = function(client, bufnr)
-	if client.server_capabilities.documentFormattingProvider then
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = vim.api.nvim_create_augroup("Format", { clear = true }),
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.formatting_seq_sync()
-			end,
-		})
-		end
-	end
+			local present, lspconfig = pcall(require, "lspconfig")
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	end },
+if not present then
+  return
+end
+
+local M = {}
+
+-- export on_attach & capabilities for custom lspconfigs
+
+M.on_attach = function(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  utils.load_mappings("lspconfig", { buffer = bufnr })
+
+  if client.server_capabilities.signatureHelpProvider then
+    require("nvchad_ui.signature").setup(client)
+  end
+end
+
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
+M.capabilities.textDocument.completion.completionItem = {
+  documentationFormat = { "markdown", "plaintext" },
+  snippetSupport = true,
+  preselectSupport = true,
+  insertReplaceSupport = true,
+  labelDetailsSupport = true,
+  deprecatedSupport = true,
+  commitCharactersSupport = true,
+  tagSupport = { valueSet = { 1 } },
+  resolveSupport = {
+    properties = {
+      "documentation",
+      "detail",
+      "additionalTextEdits",
+    },
+  },
+}
+
+lspconfig.sumneko_lua.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
+      },
+    },
+  },
+}
+
+return M
+		end },
 
 	{'hrsh7th/cmp-nvim-lsp'},
 	{'hrsh7th/cmp-buffer'},
@@ -242,15 +297,15 @@ require("lazy").setup({
 	{'nvim-tree/nvim-tree.lua',
 	config = function()
 	require("nvim-tree").setup()
-	local circles = require('circles')
-	circles.setup({ icons = { empty = '', filled = '', lsp_prefix = '' } })
-	require('nvim-tree').setup({
-	  renderer = {
-    	icons = {
-      	glyphs = circles.get_nvimtree_glyphs(),
-    	},
- 	 },
-	})
+	--local circles = require('circles')
+	--circles.setup({ icons = { empty = '', filled = '', lsp_prefix = '' } })
+	--require('nvim-tree').setup({
+	--  renderer = {
+    	--icons = {
+      	--glyphs = circles.get_nvimtree_glyphs(),
+    	--},
+ 	-- },
+	--})
 	end },
 	{'nvim-lualine/lualine.nvim',
 	config = function()
@@ -476,7 +531,8 @@ lualine.setup({
 		lualine_z = {},
 	},
 	})
-			end },	{'projekt0n/circles.nvim', lazy = true,
+			end },	
+	{'projekt0n/circles.nvim', lazy = true,
 	config = function()
 	require("circles").setup({
 	  icons = { empty = "", filled = "", lsp_prefix = "" },
