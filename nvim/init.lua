@@ -20,38 +20,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{'kevinhwang91/nvim-bqf'},
-	{'nvim-telescope/telescope.nvim',
-	cmd = 'Telescope',
-  dependencies = {
-    'nvim-telescope/telescope-symbols.nvim',
-    'nvim-telescope/telescope-fzy-native.nvim',
-    'stevearc/dressing.nvim',
-    'mrjones2014/legendary.nvim',
-    config = function()
-	    required('telescope.nvim').setup{}
-	    require('dressing').setup({
-		    input = {
-			    enabled = true,
-			    border = "none",
-		border = "rounded",
-	    mappings = {
-      n = {
-        ["<Esc>"] = "Close",
-        ["<CR>"] = "Confirm",
-      },
-      i = {
-        ["<C-c>"] = "Close",
-        ["<CR>"] = "Confirm",
-        ["<Up>"] = "HistoryPrev",
-        ["<Down>"] = "HistoryNext",
-      },
-    },
-    select = {
-    enabled = true,
-    backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
-    telescope = nil,
-    }}})
-    end}},
 	{'nvim-neotest/neotest-python'},
 	{'nvim-neotest/neotest',
 	config = function()
@@ -65,7 +33,6 @@ require("lazy").setup({
 	{"antoinemadec/FixCursorHold.nvim"},
 	{'lewis6991/gitsigns.nvim'},
 	{'NeogitOrg/neogit'},
-	{'anuvyklack/hydra.nvim'},
 	{"folke/trouble.nvim",
 	 dependencies = { "nvim-tree/nvim-web-devicons" },
 	 opts = {}
